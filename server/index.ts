@@ -1,6 +1,7 @@
 import { log } from 'console'
 import express, { RequestHandler } from 'express'
 import { db } from './datastore'
+import { createPostController, getPostsController } from './controllers/postsController'
 
 const app = express()
 
@@ -13,18 +14,8 @@ const loggerMiddleware: RequestHandler = (req,res,next)=>{
 }
 app.use(loggerMiddleware)
 
-app.get('/posts', (req,res)=>{
-    
-    res.send({posts:db.getPosts()})
+app.get('/posts',getPostsController)
 
-})
-
-app.post('/posts',(req,res)=>{
- 
-const post = req.body
-db.createPost(post)
-    res.status(200).json(post)
-
-})
+app.post('/posts',createPostController)
 
 app.listen(3000)

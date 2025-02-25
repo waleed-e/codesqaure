@@ -18,7 +18,7 @@ export class InMemoryDatabstore implements DataStore{
     getUserByUsername(userName: string): User | undefined {
         return this.users.find(u=> u.userName === userName )
     }
-    createPost(post: Post): void {
+    createPost(post: Post): void | undefined {
      this.posts.push(post)
     }
     getPosts(): Post[] | undefined {
